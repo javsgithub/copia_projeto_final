@@ -1,9 +1,9 @@
-import styled from 'styled-components'
-import { Props } from '.'
-import { colors } from '../../styles'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
-export const ButtonContainer = styled.button<Props>`
+import { colors } from '../../styles'
+
+export const ButtonContainer = styled.button<ButtonProps>`
   font-size: 14px;
   font-weight: 700;
   padding: 4px 6px;
@@ -16,7 +16,7 @@ export const ButtonContainer = styled.button<Props>`
     props.size === 'big' ? colors.pink2 : colors.pink3}};
   }
 `
-export const ButtonLink = styled(Link)<Props>`
+export const ButtonLink = styled(Link)<ButtonProps>`
   font-size: 14px;
   font-weight: 700;
   padding: 4px 6px;

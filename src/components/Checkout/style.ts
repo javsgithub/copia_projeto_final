@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
-import { CartContainer, CartSidebar } from '../Cart/style'
 
-export const CheckoutContainer = styled(CartContainer)`
+import * as S from '../Cart/style'
+import { colors } from '../../styles'
+
+export const CheckoutContainer = styled(S.CartContainer)`
   form {
     z-index: 1;
   }
@@ -12,7 +13,7 @@ export const CheckoutContainer = styled(CartContainer)`
   }
 `
 
-export const MessageContainer = styled(CartSidebar)``
+export const MessageContainer = styled(S.CartSidebar)``
 
 export const ConfirmationMessage = styled.div`
   h3 {
@@ -30,7 +31,7 @@ export const ConfirmationMessage = styled.div`
     margin-bottom: 24px;
   }
 `
-export const DeliveryContainer = styled(CartSidebar)`
+export const DeliveryContainer = styled(S.CartSidebar)`
   display: block;
 
   .invisible {
@@ -79,4 +80,4 @@ export const Row = styled.div`
   gap: 34px;
 `
 
-export const PaymentContainer = styled(CartSidebar)``
+export const PaymentContainer = styled(S.CartSidebar)``

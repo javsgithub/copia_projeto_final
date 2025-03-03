@@ -1,8 +1,8 @@
 import styled from 'styled-components'
-import { colors, Container } from '../../styles'
-import { Props } from '.'
 
-export const Image = styled.div<Props>`
+import { colors, Container } from '../../styles'
+
+export const Image = styled.div<BannerProps>`
   background-image: url(${(Props) => Props.banner.capa});
   background-repeat: no-repeat;
   background-size: cover;

@@ -1,19 +1,14 @@
-import { FoodPlace } from '../../pages/Home'
 import { Container } from '../../styles'
-import { Category, Image, RestaurantName } from './style'
+import * as S from './style'
 
-export type Props = {
-  banner: FoodPlace
-}
-
-const Banner = ({ banner }: Props) => {
+const Banner = ({ banner }: BannerProps) => {
   return (
-    <Image banner={banner}>
+    <S.Image banner={banner}>
       <Container>
-        <Category>{banner.tipo}</Category>
-        <RestaurantName>{banner.titulo}</RestaurantName>
+        <S.Category>{banner.tipo}</S.Category>
+        <S.RestaurantName>{banner.titulo}</S.RestaurantName>
       </Container>
-    </Image>
+    </S.Image>
   )
 }
 

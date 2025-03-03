@@ -1,18 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Food } from '../../components/Product'
 
 type cartState = {
   items: Food[]
-  isOpen: boolean
-  isVisible: boolean
-  isActive: boolean
+  CartIsActive: boolean
+  ModalIsActive: boolean
+  CheckoutIsActive: boolean
 }
 
 const initialState: cartState = {
   items: [],
-  isOpen: false,
-  isVisible: false,
-  isActive: false
+  CartIsActive: false,
+  ModalIsActive: false,
+  CheckoutIsActive: false
 }
 const cartSlice = createSlice({
   name: 'cart',
@@ -32,33 +31,23 @@ const cartSlice = createSlice({
       })
     },
     handleCart: (state) => {
-      state.isOpen === true ? (state.isOpen = false) : (state.isOpen = true)
+      state.CartIsActive === true
+        ? (state.CartIsActive = false)
+        : (state.CartIsActive = true)
+    },
+    handleModal: (state) => {
+      state.ModalIsActive === true
+        ? (state.ModalIsActive = false)
+        : (state.ModalIsActive = true)
     },
     handleCheckout: (state) => {
-      state.isActive === true
-        ? (state.isActive = false)
-        : (state.isActive = true)
-    },
-    // open: (state) => {
-    //   state.isOpen = true
-    // },
-    // close: (state) => {
-    //   state.isOpen = false
-    // },
-    handleModal: (state) => {
-      state.isVisible === true
-        ? (state.isVisible = false)
-        : (state.isVisible = true)
+      state.CheckoutIsActive === true
+        ? (state.CheckoutIsActive = false)
+        : (state.CheckoutIsActive = true)
     },
     clearState: (state) => {
       state.items = []
     }
-    // show: (state) => {
-    //   state.isVisible = true
-    // },
-    // hide: (state) => {
-    //   state.isVisible = false
-    // }
   }
 })
 

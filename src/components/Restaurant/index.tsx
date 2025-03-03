@@ -1,8 +1,9 @@
-import estrela from '../../assets/images/estrela.png'
-import Button from '../Button'
 import Tag from '../Tag'
+import Button from '../Button'
+
+import estrela from '../../assets/images/estrela.png'
+
 import * as S from './style'
-import { FoodPlace } from '../../pages/Home'
 
 const RestaurantCard = ({
   id,
@@ -13,8 +14,19 @@ const RestaurantCard = ({
   destacado,
   tipo
 }: FoodPlace) => {
-  const getDescription = () =>
-    descricao.length > 245 ? descricao.slice(0, 244) + '...' : descricao
+  const breakpoint = window.matchMedia('(max-width: 1024px)')
+
+  const getDescription = () => {
+    if (breakpoint.matches) {
+      if (descricao.length > 162) {
+        return descricao.slice(0, 161) + '...'
+      }
+    } else {
+      if (descricao.length > 245) {
+        return descricao.slice(0, 244) + '...'
+      }
+    }
+  }
 
   return (
     <S.RestaurantContainer>

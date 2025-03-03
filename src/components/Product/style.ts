@@ -1,8 +1,10 @@
 import styled from 'styled-components'
+
 import { colors } from '../../styles'
 
 export const ProductContainer = styled.div`
-  width: 320px;
+  max-width: 320px;
+  width: 100%;
   height: 338px;
   background-color: ${colors.pink3};
   padding: 8px;
@@ -17,7 +19,6 @@ export const ProductContainer = styled.div`
   }
 `
 export const Title = styled.h3`
-  // display: inline-block;
   height: 21px;
   font-size: 16px;
   font-weight: 900;

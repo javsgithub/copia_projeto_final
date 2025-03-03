@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+
+import { breakpoints, colors } from '../../styles'
 
 export const FooterContainer = styled.ul`
   height: 298px;
@@ -11,6 +12,19 @@ export const FooterContainer = styled.ul`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    margin-top: 60px;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    padding: 40px 16px 24px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    padding: 40px 16px 16px;
+    height: 260px;
+  }
 `
 
 export const SocialMediaContainer = styled.ul`
@@ -37,4 +51,8 @@ export const Disclaimer = styled.p`
   text-align: center;
   line-height: 12px;
   display: inline-block;
+
+  @media (max-width: ${breakpoints.mobile}) {
+    width: 100%;
+  }
 `

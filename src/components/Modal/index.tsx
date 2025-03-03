@@ -1,22 +1,19 @@
+import { useDispatch, useSelector } from 'react-redux'
+
 import Button from '../Button'
-import { Title } from '../Product/style'
-import { Description, ModalContainer, ModalContent, ModalInfos } from './style'
-import imageClosing from '../../assets/images/close 1.png'
-import { Food } from '../Product'
 
 import { handleCart, add } from '../../store/reducers'
-import { useDispatch, useSelector } from 'react-redux'
-import { Overlay } from '../Products/style'
-import { RootReducer } from '../../store'
 import { parseToBRL } from '../../utils'
+import { RootReducer } from '../../store'
 
-type Props = {
-  food: Food
-  closeModal: () => void
-}
+import imageClosing from '../../assets/images/close 1.png'
 
-const Modal = ({ food, closeModal }: Props) => {
-  const { isVisible } = useSelector((state: RootReducer) => state.cart)
+import { Overlay } from '../Products/style'
+import { Title } from '../Product/style'
+import * as S from './style'
+
+const Modal = ({ food, closeModal }: ModalProps) => {
+  const { ModalIsActive } = useSelector((state: RootReducer) => state.cart)
   const dispatch = useDispatch()
 
   const addToCart = () => {
@@ -25,22 +22,25 @@ const Modal = ({ food, closeModal }: Props) => {
   }
 
   return (
-    <ModalContainer onClick={closeModal} className={isVisible ? 'visible' : ''}>
-      <ModalContent>
+    <S.ModalContainer
+      onClick={closeModal}
+      className={ModalIsActive ? 'visible' : ''}
+    >
+      <S.ModalContent>
         <img src={food.foto} alt="Foto de uma pizza" />
-        <ModalInfos>
+        <S.ModalInfos>
           <img
             onClick={closeModal}
             src={imageClosing}
             alt="Ícone de fechar a janela"
           />
           <Title>{food.nome}</Title>
-          <Description>
+          <S.Description>
             {food.descricao}
             <br />
             <br />
             Serve: de {food.porcao}
-          </Description>
+          </S.Description>
           <Button
             type="button"
             title="Clique para adicionar este item ao carrinho"
@@ -50,10 +50,10 @@ const Modal = ({ food, closeModal }: Props) => {
           >
             {`Adicionar ao carrinho - ${parseToBRL(Number(food.preco))}`}
           </Button>
-        </ModalInfos>
-      </ModalContent>
+        </S.ModalInfos>
+      </S.ModalContent>
       <Overlay />
-    </ModalContainer>
+    </S.ModalContainer>
   )
 }
 

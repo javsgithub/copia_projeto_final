@@ -1,25 +1,16 @@
 import Button from '../Button'
-import { Description, ProductContainer, Title } from './style'
 
-export type Food = {
-  foto: string
-  preco?: number
-  id: number
-  nome: string
-  descricao: string
-  porcao?: string
-  onClick?: () => void
-}
+import * as S from './style'
 
 const Product = ({ foto, nome, descricao, onClick }: Food) => {
   const getDescription = () =>
     descricao.length > 147 ? descricao.slice(0, 146) + '...' : descricao
 
   return (
-    <ProductContainer>
+    <S.ProductContainer>
       <img src={foto} alt="Foto de uma pizza" />
-      <Title>{nome}</Title>
-      <Description>{getDescription()}</Description>
+      <S.Title>{nome}</S.Title>
+      <S.Description>{getDescription()}</S.Description>
       <Button
         type="button"
         title="Clique para saber mais sobre este prato"
@@ -29,7 +20,7 @@ const Product = ({ foto, nome, descricao, onClick }: Food) => {
       >
         Adicionar ao carrinho
       </Button>
-    </ProductContainer>
+    </S.ProductContainer>
   )
 }
 

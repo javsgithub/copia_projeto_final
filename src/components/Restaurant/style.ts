@@ -1,9 +1,11 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+
+import { breakpoints, colors } from '../../styles'
 
 export const RestaurantContainer = styled.li`
-  width: 472px;
-  height: 398px;
+  max-width: 472px;
+  width: 100%;
+  max-height: 398px;
   background-color: ${colors.white};
   position: relative;
 `
@@ -12,6 +14,10 @@ export const Cover = styled.img`
   display: block;
   width: 100%;
   height: 217px;
+
+  @media (max-width: ${breakpoints.desktop}) {
+    height: 190px;
+  }
 `
 
 export const Header = styled.div`

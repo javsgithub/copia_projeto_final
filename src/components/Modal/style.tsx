@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+
+import { breakpoints, colors } from '../../styles'
 import { Title } from '../Product/style'
 
 export const ModalContainer = styled.div`
@@ -18,7 +19,8 @@ export const ModalContainer = styled.div`
 `
 
 export const ModalContent = styled.div`
-  width: 1024px;
+  max-width: 1024px;
+  width: 100%;
   height: 344px;
   background-color: ${colors.pink3};
   padding: 32px;
@@ -37,6 +39,27 @@ export const ModalContent = styled.div`
   ${Title} {
     margin-top: 0;
   }
+
+  @media (max-width: ${breakpoints.desktop}) {
+    max-width: 90%;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    display: block;
+    max-width: 80%;
+    padding: 32px 16px 16px;
+    height: auto;
+    border-radius: 6px;
+
+    img {
+      display: block;
+      width: 100%;
+    }
+
+    ${Title} {
+      margin-top: 16px;
+    }
+  }
 `
 
 export const ModalInfos = styled.div`
@@ -49,6 +72,10 @@ export const ModalInfos = styled.div`
     position: absolute;
     top: 8px;
     right: 8px;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    margin-left: 0;
   }
 `
 

@@ -1,22 +1,26 @@
-import { useFormik } from 'formik'
-import Button from '../Button'
-import { Overlay } from '../Products/style'
-import * as S from './style'
-import { CheckoutContainer } from './style'
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import ReactInputMask from 'react-input-mask'
+
+import Button from '../Button'
+
+import { usePurchaseMutation } from '../../services/api'
 import { RootReducer } from '../../store'
 import { handleCart, handleCheckout, clearState } from '../../store/reducers'
-import * as Yup from 'yup'
-import { usePurchaseMutation } from '../../services/api'
-import { useNavigate } from 'react-router-dom'
-import { parseToBRL } from '../../utils'
-import { getTotalPrice } from '../../utils'
+import { parseToBRL, getTotalPrice } from '../../utils'
+
+import { Overlay } from '../Products/style'
+import * as S from './style'
 
 const Checkout = () => {
   const dispatch = useDispatch()
   const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
-  const { isActive, items } = useSelector((state: RootReducer) => state.cart)
+  const { CheckoutIsActive, items } = useSelector(
+    (state: RootReducer) => state.cart
+  )
   const [delivery, setDelivery] = useState(true)
   const [payment, setPayment] = useState(false)
   const navigate = useNavigate()
@@ -129,7 +133,7 @@ const Checkout = () => {
   }
 
   return (
-    <CheckoutContainer className={isActive ? 'is-active' : ''}>
+    <S.CheckoutContainer className={CheckoutIsActive ? 'is-active' : ''}>
       <Overlay />
       {isSuccess && data ? (
         <S.MessageContainer>
@@ -296,7 +300,7 @@ const Checkout = () => {
                 <S.Row>
                   <S.InputGroup>
                     <label htmlFor="cardNumber">Número do cartão</label>
-                    <input
+                    <ReactInputMask
                       type="text"
                       id="cardNumber"
                       name="cardNumber"
@@ -306,11 +310,12 @@ const Checkout = () => {
                       className={
                         checkImputContainError('cardNumber') ? 'error' : ''
                       }
+                      mask="9999 9999 9999 9999"
                     />
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="cardCode">CVV</label>
-                    <input
+                    <ReactInputMask
                       type="text"
                       id="cardCode"
                       name="cardCode"
@@ -320,13 +325,14 @@ const Checkout = () => {
                       className={
                         checkImputContainError('cardCode') ? 'error' : ''
                       }
+                      mask="999"
                     />
                   </S.InputGroup>
                 </S.Row>
                 <S.Row className="bottom-space">
                   <S.InputGroup>
                     <label htmlFor="expiryMonth">Mês de vencimento</label>
-                    <input
+                    <ReactInputMask
                       type="text"
                       id="expiryMonth"
                       name="expiryMonth"
@@ -336,11 +342,12 @@ const Checkout = () => {
                       className={
                         checkImputContainError('expiryMonth') ? 'error' : ''
                       }
+                      mask="99"
                     />
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="expiryYear">Ano de vencimento</label>
-                    <input
+                    <ReactInputMask
                       type="text"
                       id="expiryYear"
                       name="expiryYear"
@@ -350,6 +357,7 @@ const Checkout = () => {
                       className={
                         checkImputContainError('expiryYear') ? 'error' : ''
                       }
+                      mask="99"
                     />
                   </S.InputGroup>
                 </S.Row>
@@ -359,6 +367,7 @@ const Checkout = () => {
                     title="Clique para finalizar a sua compra"
                     size="big"
                     width="344px"
+                    disabled={isLoading}
                   >
                     {isLoading ? 'Finalizando...' : 'Finalizar pagamento'}
                   </Button>
@@ -380,7 +389,7 @@ const Checkout = () => {
           )}
         </form>
       )}
-    </CheckoutContainer>
+    </S.CheckoutContainer>
   )
 }
 export default Checkout

@@ -1,6 +1,8 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+
 import lixeira from '../../assets/images/lixeira.png'
+
+import { colors } from '../../styles'
 
 export const CartContainer = styled.div`
   height: 100%;

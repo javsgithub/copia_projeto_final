@@ -1,19 +1,16 @@
-import { useState } from 'react'
-import { FoodPlace } from '../../pages/Home'
-import { Container } from '../../styles'
-import Modal from '../Modal'
-import Product, { Food } from '../Product'
-import { ProductsList } from './style'
-import Cart from '../Cart'
 import { useDispatch } from 'react-redux'
-import { handleModal } from '../../store/reducers'
+import { useState } from 'react'
+
+import Modal from '../Modal'
+import Product from '../Product'
+import Cart from '../Cart'
 import Checkout from '../Checkout'
 
-type Props = {
-  foodPlace: FoodPlace
-}
+import { handleModal } from '../../store/reducers'
 
-const Products = ({ foodPlace }: Props) => {
+import { ProductContainer, ProductsList } from './style'
+
+const Products = ({ foodPlace }: ProductsProps) => {
   const dispatch = useDispatch()
   const [food, setFood] = useState<Food>({
     id: 0,
@@ -37,7 +34,7 @@ const Products = ({ foodPlace }: Props) => {
 
   return (
     <>
-      <Container>
+      <ProductContainer>
         <ProductsList>
           {foodPlace.cardapio.map((product) => (
             <li key={product.id}>
@@ -56,7 +53,7 @@ const Products = ({ foodPlace }: Props) => {
             </li>
           ))}
         </ProductsList>
-      </Container>
+      </ProductContainer>
       <Modal food={food} closeModal={() => dispatch(handleModal())} />
       <Cart />
       <Checkout />

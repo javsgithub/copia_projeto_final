@@ -1,9 +1,13 @@
-import { Container } from '../../styles'
-import { ButtonLink, HeaderContainer, Logo } from './style'
-import logo from '../../assets/images/logo.png'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { handleCart } from '../../store/reducers'
 import { RootReducer } from '../../store'
+
+import logo from '../../assets/images/logo.png'
+import cart from '../../assets/images/cart.svg'
+
+import { Container } from '../../styles'
+import * as S from './style'
 
 const RestaurantHeader = () => {
   const { items } = useSelector((state: RootReducer) => state.cart)
@@ -13,15 +17,18 @@ const RestaurantHeader = () => {
     dispatch(handleCart())
   }
   return (
-    <HeaderContainer>
+    <S.HeaderContainer>
       <Container>
-        <ButtonLink to={'/'}>Restaurantes</ButtonLink>
-        <Logo src={logo} />
-        <p onClick={openCart}>
-          <span>{items.length}</span>&nbsp;produtos(s) no carrinho
+        <S.ButtonLink to={'/'}>Restaurantes</S.ButtonLink>
+        <S.ButtonLink to={'/'}>
+          <S.Logo src={logo} />
+        </S.ButtonLink>
+        <p role="button" onClick={openCart}>
+          <span>{items.length}</span>&nbsp;produtos(s){' '}
+          <img className="basket" src={cart} alt="Carrinho de compras" />
         </p>
       </Container>
-    </HeaderContainer>
+    </S.HeaderContainer>
   )
 }
 
