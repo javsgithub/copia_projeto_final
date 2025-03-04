@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react'
+
 import Tag from '../Tag'
 import Button from '../Button'
 
 import estrela from '../../assets/images/estrela.png'
 
 import * as S from './style'
+import { breakpoints } from '../../styles'
 
 const RestaurantCard = ({
   id,
@@ -14,16 +17,25 @@ const RestaurantCard = ({
   destacado,
   tipo
 }: FoodPlace) => {
-  const breakpoint = window.matchMedia('(max-width: 1024px)')
+  const [isTablet, setIsTablet] = useState(false)
+
+  useEffect(() => {
+    const breakpoint = window.matchMedia(`(max-width: ${breakpoints.tablet})`)
+
+    setIsTablet(breakpoint.matches)
+
+    const listener = () => setIsTablet(breakpoint.matches)
+    breakpoint.addEventListener('change', listener)
+  }, [])
 
   const getDescription = () => {
-    if (breakpoint.matches) {
+    if (isTablet) {
       if (descricao.length > 162) {
         return descricao.slice(0, 161) + '...'
       }
     } else {
-      if (descricao.length > 245) {
-        return descricao.slice(0, 244) + '...'
+      if (descricao.length > 231) {
+        return descricao.slice(0, 230) + '...'
       }
     }
   }

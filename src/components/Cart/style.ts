@@ -19,11 +19,21 @@ export const CartContainer = styled.div`
 `
 
 export const CartSidebar = styled.aside`
+  position: relative;
   height: 100%;
   width: 360px;
   padding: 32px 8px 0 8px;
   background: ${colors.pink3};
   z-index: 1;
+
+  .image-closing {
+    height: 16px;
+    width: 16px;
+    color: ${colors.pink1};
+    position: absolute;
+    top: 8px;
+    right: 8px;
+  }
 
   &.invisible {
     display: none;

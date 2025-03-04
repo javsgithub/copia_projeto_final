@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import Button from '../Button'
 
-import { handleCart, add } from '../../store/reducers'
+import { handleCart, add, handleModal } from '../../store/reducers'
 import { parseToBRL } from '../../utils'
 import { RootReducer } from '../../store'
 
@@ -18,14 +18,12 @@ const Modal = ({ food, closeModal }: ModalProps) => {
 
   const addToCart = () => {
     dispatch(handleCart())
+    dispatch(handleModal())
     dispatch(add(food))
   }
 
   return (
-    <S.ModalContainer
-      onClick={closeModal}
-      className={ModalIsActive ? 'visible' : ''}
-    >
+    <S.ModalContainer className={ModalIsActive ? 'visible' : ''}>
       <S.ModalContent>
         <img src={food.foto} alt="Foto de uma pizza" />
         <S.ModalInfos>
@@ -52,7 +50,7 @@ const Modal = ({ food, closeModal }: ModalProps) => {
           </Button>
         </S.ModalInfos>
       </S.ModalContent>
-      <Overlay />
+      <Overlay onClick={closeModal} />
     </S.ModalContainer>
   )
 }

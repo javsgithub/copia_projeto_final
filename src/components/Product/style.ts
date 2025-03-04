@@ -5,7 +5,7 @@ import { colors } from '../../styles'
 export const ProductContainer = styled.div`
   max-width: 320px;
   width: 100%;
-  height: 338px;
+  height: auto;
   background-color: ${colors.pink3};
   padding: 8px;
   font-size: 14px;

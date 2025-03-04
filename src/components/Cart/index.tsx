@@ -1,6 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 
 import Button from '../Button'
+
+import ClosingIcon from '../../assets/images/close 1.png'
 
 import { RootReducer } from '../../store'
 import { handleCheckout, handleCart, exclude } from '../../store/reducers'
@@ -8,6 +11,7 @@ import { getTotalPrice } from '../../utils'
 import { parseToBRL } from '../../utils'
 
 import { Overlay } from '../Products/style'
+import { breakpoints } from '../../styles'
 import * as S from './style'
 
 const Cart = () => {
@@ -20,10 +24,37 @@ const Cart = () => {
     dispatch(handleCart())
   }
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const breakpoint = window.matchMedia(`(max-width: ${breakpoints.mobile})`)
+
+    setIsMobile(breakpoint.matches)
+
+    const listener = () => setIsMobile(breakpoint.matches)
+    breakpoint.addEventListener('change', listener)
+  }, [])
+
+  const showClosingIcon = () => {
+    if (isMobile) {
+      return (
+        <img
+          onClick={() => dispatch(handleCart())}
+          src={ClosingIcon}
+          alt="Ícone de fechar a janela"
+          className="image-closing"
+        />
+      )
+    } else {
+      return <></>
+    }
+  }
+
   return (
     <S.CartContainer className={CartIsActive ? 'is-open' : ''}>
       <Overlay onClick={closeCart} />
       <S.CartSidebar>
+        {showClosingIcon()}
         {items.length === 0 ? (
           <S.EmptyCartMessage>O seu carrinho está vazio.</S.EmptyCartMessage>
         ) : (
