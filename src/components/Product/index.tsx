@@ -15,7 +15,7 @@ const Product = ({ foto, nome, descricao, onClick }: Food) => {
         type="button"
         title="Clique para saber mais sobre este prato"
         size="big"
-        width="304px"
+        width="100%"
         onClick={onClick}
       >
         Adicionar ao carrinho

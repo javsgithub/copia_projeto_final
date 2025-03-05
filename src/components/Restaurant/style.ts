@@ -46,7 +46,6 @@ export const Description = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
-  margin: 16px 0;
 `
 
 export const InfoTags = styled.div`
@@ -57,16 +56,13 @@ export const InfoTags = styled.div`
 
 export const Bottom = styled.div`
   width: 100%;
-  height: 181px;
+  height: auto;
   padding: 8px;
   background-color: ${colors.white};
   color: ${colors.pink3};
   border: 1px solid ${colors.pink3};
   border-top: 0;
-  box-sizing: border-box;
-
-  @media (max-width: ${breakpoints.mobile}) {
-    height: auto;
-    padding-bottom: 10px;
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 `

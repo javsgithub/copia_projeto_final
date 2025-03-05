@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { colors } from '../../styles'
 
 export const ButtonContainer = styled.button<ButtonProps>`
+  box-sizing: border-box;
   font-size: 14px;
   font-weight: 700;
   padding: 4px 6px;

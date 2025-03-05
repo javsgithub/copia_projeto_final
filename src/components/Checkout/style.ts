@@ -47,6 +47,8 @@ export const FormSidebar = styled.div`
 `
 
 export const InputGroup = styled.div`
+  margin-bottom: 8px;
+
   label {
     font-size: 14px;
     fontt-weight: 700;
@@ -60,11 +62,17 @@ export const InputGroup = styled.div`
     background-color: ${colors.pink2};
     border: 1px solid ${colors.pink2};
     padding: 0 8px;
-    margin: 8px 0;
+    margin-top: 8px;
 
     &.error {
       border: 2px solid red;
     }
+  }
+
+  small {
+    color: #000;
+    font-size: 10px;
+    margin-left: 1px;
   }
 `
 

@@ -33,6 +33,29 @@ const Checkout = () => {
     payment === true ? setPayment(false) : setPayment(true)
   }
 
+  const goToPayment = () => {
+    form.validateForm().then((errors) => {
+      if (Object.keys(errors).length === 0) {
+        handleDelivery()
+        handlePayment()
+      }
+    })
+  }
+
+  const checkInputContainError = (fieldName: string) => {
+    const isTouched = fieldName in form.touched
+    const isInvalid = fieldName in form.errors
+    const containError = isTouched && isInvalid
+
+    return containError
+  }
+
+  const InputErrorMessage = (fieldName: string, message: string) => {
+    const containError = fieldName in form.touched && fieldName in form.errors
+
+    if (containError) return message
+  }
+
   const form = useFormik({
     initialValues: {
       receiver: '',
@@ -115,23 +138,6 @@ const Checkout = () => {
     }
   })
 
-  const checkImputContainError = (fieldName: string) => {
-    const isTouched = fieldName in form.touched
-    const isInvalid = fieldName in form.errors
-    const containError = isTouched && isInvalid
-
-    return containError
-  }
-
-  const goToPayment = () => {
-    form.validateForm().then((errors) => {
-      if (Object.keys(errors).length === 0) {
-        handleDelivery()
-        handlePayment()
-      }
-    })
-  }
-
   return (
     <S.CheckoutContainer className={CheckoutIsActive ? 'is-active' : ''}>
       <Overlay />
@@ -185,8 +191,11 @@ const Checkout = () => {
                   value={form.values.receiver}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
-                  className={checkImputContainError('receiver') ? 'error' : ''}
+                  className={checkInputContainError('receiver') ? 'error' : ''}
                 />
+                <small>
+                  {InputErrorMessage('receiver', 'Este campo é obrigatório.')}
+                </small>
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="deliveryAddress">Endereço</label>
@@ -198,9 +207,15 @@ const Checkout = () => {
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
                   className={
-                    checkImputContainError('deliveryAddress') ? 'error' : ''
+                    checkInputContainError('deliveryAddress') ? 'error' : ''
                   }
                 />
+                <small>
+                  {InputErrorMessage(
+                    'deliveryAddress',
+                    'Este campo é obrigatório.'
+                  )}
+                </small>
               </S.InputGroup>
               <S.InputGroup>
                 <label htmlFor="city">Cidade</label>
@@ -211,8 +226,11 @@ const Checkout = () => {
                   value={form.values.city}
                   onChange={form.handleChange}
                   onBlur={form.handleBlur}
-                  className={checkImputContainError('city') ? 'error' : ''}
+                  className={checkInputContainError('city') ? 'error' : ''}
                 />
+                <small>
+                  {InputErrorMessage('city', 'Este campo é obrigatório.')}
+                </small>
               </S.InputGroup>
               <S.Row>
                 <S.InputGroup>
@@ -224,8 +242,11 @@ const Checkout = () => {
                     value={form.values.zipcode}
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
-                    className={checkImputContainError('zipcode') ? 'error' : ''}
+                    className={checkInputContainError('zipcode') ? 'error' : ''}
                   />
+                  <small>
+                    {InputErrorMessage('zipcode', 'Este campo é obrigatório.')}
+                  </small>
                 </S.InputGroup>
                 <S.InputGroup>
                   <label htmlFor="number">Número</label>
@@ -236,8 +257,11 @@ const Checkout = () => {
                     value={form.values.number}
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
-                    className={checkImputContainError('number') ? 'error' : ''}
+                    className={checkInputContainError('number') ? 'error' : ''}
                   />
+                  <small>
+                    {InputErrorMessage('number', 'Este campo é obrigatório.')}
+                  </small>
                 </S.InputGroup>
               </S.Row>
               <S.InputGroup>
@@ -281,7 +305,7 @@ const Checkout = () => {
               <S.FormSidebar>
                 <p>
                   Pagamento - Valor a pagar{' '}
-                  <span>{parseToBRL(getTotalPrice(items))}</span>
+                  <small>{parseToBRL(getTotalPrice(items))}</small>
                 </p>
                 <S.InputGroup>
                   <label htmlFor="nameOnCard">Nome no Cartão</label>
@@ -293,9 +317,15 @@ const Checkout = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                     className={
-                      checkImputContainError('nameOnCard') ? 'error' : ''
+                      checkInputContainError('nameOnCard') ? 'error' : ''
                     }
                   />
+                  <small>
+                    {InputErrorMessage(
+                      'nameOnCard',
+                      'Este campo é obrigatório.'
+                    )}
+                  </small>
                 </S.InputGroup>
                 <S.Row>
                   <S.InputGroup>
@@ -308,10 +338,16 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                       className={
-                        checkImputContainError('cardNumber') ? 'error' : ''
+                        checkInputContainError('cardNumber') ? 'error' : ''
                       }
                       mask="9999 9999 9999 9999"
                     />
+                    <small>
+                      {InputErrorMessage(
+                        'cardNumber',
+                        'Este campo é obrigatório.'
+                      )}
+                    </small>
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="cardCode">CVV</label>
@@ -323,10 +359,16 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                       className={
-                        checkImputContainError('cardCode') ? 'error' : ''
+                        checkInputContainError('cardCode') ? 'error' : ''
                       }
                       mask="999"
                     />
+                    <small>
+                      {InputErrorMessage(
+                        'cardCode',
+                        'Este campo é obrigatório.'
+                      )}
+                    </small>
                   </S.InputGroup>
                 </S.Row>
                 <S.Row className="bottom-space">
@@ -340,10 +382,16 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                       className={
-                        checkImputContainError('expiryMonth') ? 'error' : ''
+                        checkInputContainError('expiryMonth') ? 'error' : ''
                       }
                       mask="99"
                     />
+                    <small>
+                      {InputErrorMessage(
+                        'expiryMonth',
+                        'Este campo é obrigatório.'
+                      )}
+                    </small>
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="expiryYear">Ano de vencimento</label>
@@ -355,10 +403,16 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                       className={
-                        checkImputContainError('expiryYear') ? 'error' : ''
+                        checkInputContainError('expiryYear') ? 'error' : ''
                       }
                       mask="99"
                     />
+                    <small>
+                      {InputErrorMessage(
+                        'expiryYear',
+                        'Este campo é obrigatório.'
+                      )}
+                    </small>
                   </S.InputGroup>
                 </S.Row>
                 <S.ButtonContainer className="button-spaces">

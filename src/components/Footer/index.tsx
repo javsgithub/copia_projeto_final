@@ -4,12 +4,15 @@ import twitter from '../../assets/images/twitter.png'
 import logo from '../../assets/images/logo.png'
 
 import { Logo } from '../Hero/style'
+import { ButtonLink } from '../RestaurantHeader/style'
 import * as S from './style'
 
 const Footer = () => (
   <S.FooterContainer>
     <div>
-      <Logo src={logo} alt="Logo E-food" />
+      <ButtonLink to={'/'}>
+        <Logo src={logo} alt="Logo E-food" />
+      </ButtonLink>
       <S.SocialMediaContainer>
         <img src={instagram} alt="Instragram" />
         <img className="center" src={facebook} alt="Facebook" />
