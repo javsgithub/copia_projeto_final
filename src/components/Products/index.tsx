@@ -7,10 +7,11 @@ import Cart from '../Cart'
 import Checkout from '../Checkout'
 
 import { handleModal } from '../../store/reducers'
+import Loader from '../../Loader'
 
 import { ProductContainer, ProductsList } from './style'
 
-const Products = ({ foodPlace }: ProductsProps) => {
+const Products = ({ foodPlace, isLoading }: ProductsProps) => {
   const dispatch = useDispatch()
   const [food, setFood] = useState<Food>({
     id: 0,
@@ -32,26 +33,31 @@ const Products = ({ foodPlace }: ProductsProps) => {
     })
   }
 
+  if (isLoading) {
+    return <Loader />
+  }
+
   return (
     <>
       <ProductContainer>
         <ProductsList>
-          {foodPlace.cardapio.map((product) => (
-            <li key={product.id}>
-              <Product
-                foto={product.foto}
-                preco={product.preco}
-                id={product.id}
-                nome={product.nome}
-                descricao={product.descricao}
-                porcao={product.porcao}
-                onClick={() => {
-                  dispatch(handleModal())
-                  getFood(product)
-                }}
-              />
-            </li>
-          ))}
+          {foodPlace &&
+            foodPlace.cardapio.map((product) => (
+              <li key={product.id}>
+                <Product
+                  foto={product.foto}
+                  preco={product.preco}
+                  id={product.id}
+                  nome={product.nome}
+                  descricao={product.descricao}
+                  porcao={product.porcao}
+                  onClick={() => {
+                    dispatch(handleModal())
+                    getFood(product)
+                  }}
+                />
+              </li>
+            ))}
         </ProductsList>
       </ProductContainer>
       <Modal food={food} closeModal={() => dispatch(handleModal())} />

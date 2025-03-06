@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { FocusEvent, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
@@ -138,6 +138,23 @@ const Checkout = () => {
     }
   })
 
+  const checkCep = (e: FocusEvent<HTMLInputElement>) => {
+    form.handleBlur(e)
+    const cep = e.target.value.replace(/\D/g, '')
+    console.log(cep)
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        form.setFieldValue(
+          'deliveryAddress',
+          `${data.logradouro}, ${data.bairro} `
+        )
+        form.setFieldValue('city', data.localidade)
+        document.getElementById('number')?.focus()
+      })
+  }
+
   return (
     <S.CheckoutContainer className={CheckoutIsActive ? 'is-active' : ''}>
       <Overlay />
@@ -235,14 +252,15 @@ const Checkout = () => {
               <S.Row>
                 <S.InputGroup>
                   <label htmlFor="zipcode">CEP</label>
-                  <input
+                  <ReactInputMask
                     type="text"
                     id="zipcode"
                     name="zipcode"
                     value={form.values.zipcode}
                     onChange={form.handleChange}
-                    onBlur={form.handleBlur}
+                    onBlur={checkCep}
                     className={checkInputContainError('zipcode') ? 'error' : ''}
+                    mask="99999-999"
                   />
                   <small>
                     {InputErrorMessage('zipcode', 'Este campo é obrigatório.')}

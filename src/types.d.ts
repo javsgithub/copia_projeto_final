@@ -20,7 +20,7 @@ declare type Food = {
 }
 
 declare type BannerProps = {
-  banner: FoodPlace
+  banner?: FoodPlace
 }
 
 declare type ButtonProps = {
@@ -40,7 +40,8 @@ declare type ModalProps = {
 }
 
 declare type ProductsProps = {
-  foodPlace: FoodPlace
+  foodPlace?: FoodPlace
+  isLoading: boolean
 }
 
 declare type RestaurantListProps = {

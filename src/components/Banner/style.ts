@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { colors, Container } from '../../styles'
 
 export const Image = styled.div<BannerProps>`
-  background-image: url(${(Props) => Props.banner.capa});
+  background-image: url(${(Props) => Props.banner && Props.banner.capa});
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;

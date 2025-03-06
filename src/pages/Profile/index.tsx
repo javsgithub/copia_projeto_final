@@ -9,17 +9,15 @@ import { useGetProductsQuery } from '../../services/api'
 
 const Profile = () => {
   const { id } = useParams()
-  const { data: products } = useGetProductsQuery(id as string)
-
-  if (!products) {
-    return <h3>Carregando...</h3>
-  }
+  const { data: products, isLoading: DataLoading } = useGetProductsQuery(
+    id as string
+  )
 
   return (
     <>
       <RestaurantHeader />
       <Banner banner={products} />
-      <Products foodPlace={products} />
+      <Products foodPlace={products} isLoading={DataLoading} />
       <Footer />
     </>
   )
